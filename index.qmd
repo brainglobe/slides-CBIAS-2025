@@ -1,13 +1,11 @@
 ---
-title: A template presentation
-subtitle: Made with Quarto and RevealJS
-author: SWC/GCNU Neuroinformatics Unit
-date: today
+title: `brainglobe-registration`
+subtitle: Registering 2D planes and 3D subvolumes to a 3D atlas
+author: Igor Tatarnikov
+date: 24 November 2025
 format:
   revealjs:
-    footer: "Location | Event | Date"
-my-custom-stuff:
-   my-reuseable-variable: "I can use this wherever I want in the markdown, and change it in only once place :)"
+    footer: "[brainglobe.info/slides-CBIAS-2025](https://brainglobe.info/slides-CBIAS-2025)"
 ---
 
 ## Contents
