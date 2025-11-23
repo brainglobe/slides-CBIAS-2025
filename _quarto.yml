@@ -12,6 +12,8 @@ format:
     slide-number: c
     menu:
       numbers: true
+      useTextContentForMissingTitles: false 
+      hideMissingTitles: true
     chalkboard: true
     scrollable: true
     preview-links: false
