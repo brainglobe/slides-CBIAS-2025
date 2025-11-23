@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/tabby.min.js"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-ac1a48248070c8bfbae4244efd7728e4.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.26">
+
+  <meta name="author" content="Igor Tatarnikov">
+  <meta name="dcterms.date" content="2025-11-24">
+  <title>brainglobe-registration</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-1fd82709dfb44ea85f6cde6c4e53e2ab.css">
+  <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">brainglobe-registration</h1>
+  <p class="subtitle">Registering 2D planes and 3D subvolumes to a 3D atlas</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Igor Tatarnikov 
+</div>
+</div>
+</div>
+
+  <p class="date">2025-11-24</p>
+</section>
+<section id="understanding-the-brain" class="slide level2">
+<h2>Understanding the brain</h2>
+<p><img data-src="img/cajal_0_regions.jpg" class="absolute nostretch" style="top: 20%; left: 5%; width: 90%; "></p>
+<div class="fragment">
+<p><img data-src="img/cajal_1_region.jpg" class="absolute nostretch" style="top: 20%; left: 5%; width: 90%; "></p>
+</div>
+<div class="fragment">
+<p><img data-src="img/cajal_2_regions.jpg" class="absolute nostretch" style="top: 20%; left: 5%; width: 90%; "></p>
+</div>
+</section>
+<section id="understanding-the-brain-1" class="slide level2">
+<h2>Understanding the brain</h2>
+<p><img data-src="img/1307_Brodmann_Areas.jpg" class="absolute" style="top: 15%; left: 5%; width: 90%; "></p>
+<div style="background: #ffffff; width: 75%; height: 7%; margin: 0px; position: absolute; top: 90%; left: 12%">
+
+</div>
+</section>
+<section id="brain-atlases" class="slide level2">
+<h2>Brain atlases</h2>
+<div class="fragment absolute" style="font-size: 0.7em; text-align: center;top: 15%; left: 0%; width: 50%; height: 85%; ">
+<p><img data-src="img/allen_10um_template.png" class="nostretch"> Template</p>
+</div>
+<div class="fragment absolute" style="font-size: 0.7em; text-align: center;top: 15%; right: 0%; width: 50%; height: 85%; ">
+<p><img data-src="img/allen_10um_annotations.png" class="nostretch"> Annotation</p>
+</div>
+</section>
+<section id="brainglobe-initiative" class="slide level2 smaller scrollable">
+<h2>BrainGlobe Initiative</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<p>Established 2020 with three aims:</p>
+<ol type="1">
+<li class="fragment">Develop general-purpose tools to help others build interoperable software for computational neuroanatomy.</li>
+<li class="fragment">Develop specialist software for specific analysis and visualisation needs.</li>
+<li class="fragment">Reduce barriers of entry, and facilitate the building of an ecosystem of computational neuroanatomy tools.</li>
+</ol>
+</div><div class="column" style="width:45%;">
+<p><img data-src="img/tracing.png" class="" style="width:90.0%"></p>
+</div></div>
+</section>
+<section id="brainglobe-atlases" class="slide level2">
+<h2>BrainGlobe atlases</h2>
+<h3 id="brainglobe-atlasapi"><a href="https://github.com/brainglobe/brainglobe-atlasapi">brainglobe-atlasapi</a></h3>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/atlas.png" class="nostretch quarto-figure quarto-figure-center" style="width:65.0%"></p>
+</figure>
+</div>
+<p><img data-src="img/noun-map-195855-EE9040.svg" class="absolute nostretch" style="top: 4%; right: 0%; width: 10%; "></p>
+<div class="footer">
+<p><a href="https://doi.org/10.21105/joss.02668">Claudi, F. et al.&nbsp;(2020) “BrainGlobe Atlas API: a common interface for neuroanatomical atlases” JOSS, v5(54), 2668</a></p>
+</div>
+</section>
+<section id="whole-brain-registration" class="slide level2">
+<h2>Whole-brain registration</h2>
+<h3 id="brainreg"><a href="https://github.com/brainglobe/brainreg"><code>brainreg</code></a></h3>
+<p><img data-src="img/brainreg.png" class="absolute nostretch" style="top: 20%; left: 5%; width: 90%; "></p>
+<p><img data-src="img/noun-map-195855-EE9040.svg" class="absolute nostretch" style="top: 4%; right: 0%; width: 10%; "></p>
+<div style="background: #ffffff; width: 15%; height: 65%; margin: 0px; position: absolute; top: 23%; right: 6%">
+
+</div>
+<div class="absolute" style="font-size: 0.7em;top: 32%; left: 79%; ">
+<p>Allen Mouse<br> Brain Atlas</p>
+</div>
+<div class="absolute" style="font-size: 0.7em;top: 65%; left: 79%; ">
+<p>Enhanced and<br> Unified Mouse<br> Brain Atlas</p>
+</div>
+<div class="absolute" style="text-align: right; font-size: 0.4em;bottom: 0%; right: 0%; ">
+<p>Christian Niedwork<br> Charly Rousseau<br> Adam Tyson</p>
+</div>
+<div class="footer">
+<p><a href="https://doi.org/10.1038/s41598-021-04676-9">Tyson, A. L. et al.&nbsp;(2022) “Accurate determination of marker location within whole-brain microscopy images” Sci Rep, 12, 867</a></p>
+</div>
+</section>
+<section id="section" class="slide level2">
+<h2></h2>
+<p><img data-src="img/example_slice_10um.png" class="absolute nostretch" style="top: 5%; left: 0%; height: 45%; "></p>
+<div class="fragment fade-in">
+<p><img data-src="img/atlas_slice_150_10um.png" class="absolute nostretch" style="top: 50%; left: 0%; height: 45%; "></p>
+</div>
+<div class="fragment fade-in">
+<p><img data-src="img/atlas_slice_350_10um.png" class="absolute nostretch" style="top: 50%; left: 0%; height: 45%; "></p>
+</div>
+<div class="fragment fade-in">
+<p><img data-src="img/atlas_slice_550_10um.png" class="absolute nostretch" style="top: 50%; left: 0%; height: 45%; "></p>
+</div>
+<div class="fragment fade-in">
+<p><img data-src="img/atlas_slice_700_10um.png" class="absolute nostretch" style="top: 50%; left: 0%; height: 45%; "></p>
+</div>
+<div class="fragment fade-in">
+<p><img data-src="img/atlas_slice_850_10um.png" class="absolute nostretch" style="top: 50%; left: 0%; height: 45%; "></p>
+</div>
+<div class="fragment fade-in">
+<p><img data-src="img/atlas_slice_1050_10um.png" class="absolute nostretch" style="top: 50%; left: 0%; height: 45%; "></p>
+</div>
+<div class="fragment fade-in">
+<p><img data-src="img/atlas_slice_1250_10um.png" class="absolute nostretch" style="top: 50%; left: 0%; height: 45%; "></p>
+</div>
+<div class="fragment fade-in">
+<p><img data-src="img/atlas_slice_700_10um.png" class="absolute nostretch" style="top: 50%; left: 0%; height: 45%; "></p>
+</div>
+<div class="fragment fade-in">
+<p><img data-src="img/mi_original_space_aligned.png" class="absolute nostretch" style="top: 25%; right: 0%; width: 60%; "></p>
+</div>
+</section>
+<section id="section-1" class="slide level2">
+<h2></h2>
+<p><img data-src="img/pitched_slice_10um.png" class="absolute nostretch" style="top: 5%; left: 0%; height: 45%; "></p>
+<div class="fragment fade-in">
+<p><img data-src="img/atlas_slice_675_pitched_0_10um.png" class="absolute nostretch" style="top: 50%; left: 0%; height: 45%; "></p>
+</div>
+<div class="fragment fade-in">
+<p><img data-src="img/atlas_slice_675_pitched_5_10um.png" class="absolute nostretch" style="top: 50%; left: 0%; height: 45%; "></p>
+</div>
+<div class="fragment fade-in">
+<p><img data-src="img/atlas_slice_675_pitched_10_10um.png" class="absolute nostretch" style="top: 50%; left: 0%; height: 45%; "></p>
+</div>
+<div class="fragment fade-in">
+<p><img data-src="img/atlas_slice_675_pitched_15_10um.png" class="absolute nostretch" style="top: 50%; left: 0%; height: 45%; "></p>
+</div>
+<div class="fragment fade-in">
+<p><img data-src="img/atlas_slice_675_pitched_20_10um.png" class="absolute nostretch" style="top: 50%; left: 0%; height: 45%; "></p>
+</div>
+<div class="fragment fade-in">
+<p><img data-src="img/atlas_slice_675_pitched_10_10um.png" class="absolute nostretch" style="top: 50%; left: 0%; height: 45%; "></p>
+</div>
+<div class="fragment">
+<p><img data-src="img/mi_multi_angle.png" class="absolute nostretch" style="top: 24%; right: 0%; width: 60%; "></p>
+</div>
+<div class="fragment">
+<p><img data-src="img/mi_multi_angle_heatmap.png" class="absolute nostretch" style="top: 25%; right: 0%; width: 60%; "></p>
+</div>
+<div class="fragment">
+<p><img data-src="img/mi_multi_angle_heatmap_grid_4.png" class="absolute nostretch" style="top: 25%; right: 0%; width: 60%; "></p>
+</div>
+<div class="fragment">
+<p><img data-src="img/mi_multi_angle_heatmap_grid_8.png" class="absolute nostretch" style="top: 25%; right: 0%; width: 60%; "></p>
+</div>
+<div class="fragment">
+<p><img data-src="img/mi_multi_angle_heatmap_grid_16.png" class="absolute nostretch" style="top: 25%; right: 0%; width: 60%; "></p>
+</div>
+<div class="fragment">
+<p><img data-src="img/mi_multi_angle_heatmap_grid_32.png" class="absolute nostretch" style="top: 25%; right: 0%; width: 60%; "></p>
+</div>
+<div class="fragment">
+<p><img data-src="img/mi_multi_angle_heatmap_grid_64.png" class="absolute nostretch" style="top: 25%; right: 0%; width: 60%; "></p>
+</div>
+</section>
+<section id="bayesian-optimisation" class="slide level2 scrollable">
+<h2>Bayesian Optimisation</h2>
+<ol type="1">
+<li class="fragment">Start by trying random parameters</li>
+<li class="fragment">Build a guess of the “match quality” landscape</li>
+<li class="fragment">Pick the next parameters to try based on this guess</li>
+<li class="fragment">Update the guess with the new result</li>
+<li class="fragment">Repeat steps 3-4</li>
+</ol>
+</section>
+<section id="section-2" class="slide level2">
+<h2></h2>
+<p><img data-src="img/bayesian_optimization.gif" class="absolute" style="top: 10%; left: 10%; width: 75%; "></p>
+<div class="fragment fade-out" style="background: #ffffffff; width: 100%; height: 41%; margin: 0px; position: absolute; top: 51%; right: 0%">
+
+</div>
+<div class="footer">
+<p><a href="https://bayesian-optimization.github.io/BayesianOptimization/master/index.html">https://bayesian-optimization.github.io/BayesianOptimization/master/index.html</a></p>
+</div>
+</section>
+<section id="bayesian-optimisation-1" class="slide level2">
+<h2>Bayesian Optimisation</h2>
+<p><img data-src="img/num_iter_median_distance.png" class="absolute nostretch" style="top: 22%; left: 0%; width: 68%; "></p>
+<div class="fragment">
+<p><img data-src="img/cbias_large_rep_comparison.png" class="absolute nostretch" style="top: 7%; right: 5%; height: 85%; "></p>
+</div>
+</section>
+<section id="brainglobe-registration" class="slide level2">
+<h2><a href="https://github.com/brainglobe/brainglobe-registration"><code>brainglobe-registration</code></a></h2>
+<p><img data-src="img/brainglobe-registration-napari.png" class="absolute" style="top: 15%; left: 10%; width: 80%; "></p>
+</section>
+<section id="acknowledgements" class="slide level2">
+<h2>Acknowledgements</h2>
+<p><br></p>
+<p>Saarah Hussain<br> Alessandro Felder<br> Niko Sirmpilatze<br> Adam Tyson</p>
+<div class="fragment">
+<p><img data-src="img/swc.webp" class="absolute" style="top: 55%; left: 10%; height: 120px; "> <img data-src="img/GSoC-Vertical.png" class="absolute" style="top: 31%; right: 12%; height: 350px; "> <img data-src="img/Chan_Zuckerberg_Initiative.png" class="absolute" style="top: 79%; right: 0%; height: 112px; "> <img data-src="img/funders.webp" class="absolute" style="top: 79%; left: 0%; width: 78%; "></p>
+</div>
+</section>
+<section id="contributors" class="slide level2">
+<h2><img data-src="img/BG_logo.png" style="margin-bottom: 0px; margin-top: 0px;" height="70"> <a href="https://brainglobe.info/people.html">Contributors</a></h2>
+<div class="columns gray_link_div" style="font-size: 0.4em;">
+<div class="column" style="width:20%;">
+<p><a href="https://github.com/cniedwor">Christian Niedworok</a> <br> <a href="https://github.com/crousseau">Charly Rousseau</a> <br> <a href="https://github.com/horsto">Horst Obenhaus</a> <br> <a href="https://github.com/chrytsi">Chryssanthi Tsitoura</a> <br> <a href="https://github.com/Sepidak">Sepiedeh Keshavarzi</a> <br> <a href="https://github.com/velezmat">Mateo Vélez-Fort</a> <br> <a href="https://github.com/stephenlenzi">Stephen Lenzi</a> <br> <a href="https://github.com/raacampbell">Rob Campbell</a> <br> <a href="https://github.com/alessandrofelder">Alessandro Felder</a> <br> <a href="https://github.com/FedeClaudi">Federico Claudi</a> <br> <a href="https://github.com/vigji">Luigi Petrucco</a> <br> <a href="https://github.com/adamltyson">Adam Tyson</a> <br> <a href="https://github.com/troymargrie">Troy Margrie</a> <br> <a href="https://github.com/ineuron">Tiago Branco</a> <br> <a href="https://github.com/portugueslab">Ruben Portugues</a> <br> <a href="https://github.com/JoeZiminski">Joe Ziminski</a> <br> <a href="https://github.com/sfmig">Sofia Miñano</a> <br> <a href="https://github.com/niksirbi">Niko Sirmpilatze</a> <br> <a href="https://github.com/nickdelgrosso">Nicholas Del Grosso</a> <br> <a href="https://github.com/lauraporta">Laura Porta</a> <br> <a href="https://github.com/lcossell">Lee Cossell</a> <br> <a href="https://github.com/ablot">Antonin Blot</a> <br> <a href="https://github.com/dpshelio">David Pérez-Suárez</a> <br> <a href="https://github.com/dstansby">David Stansby</a> <br> <a href="https://github.com/willGraham01">Will Graham</a> <br> <a href="https://github.com/paddyroddy">Patrick Roddy</a></p>
+</div><div class="column" style="width:20%;">
+<p><a href="https://github.com/adrien-berchet">Adrien Berchet</a> <br> <a href="https://github.com/MathieuBo">Mathieu Bourdenx</a> <br> <a href="https://github.com/bkntr">bkntr</a> <br> <a href="https://github.com/novafae">NovaFae</a> <br> <a href="https://github.com/yoda-vid">David Young</a> <br> <a href="https://github.com/samclothier">Sam Clothier</a> <br> <a href="https://github.com/Gubra-ApS">Gubra-ApS</a> <br> <a href="https://github.com/kailynkfields">Kailyn Fields</a> <br> <a href="https://github.com/ramroomh">ramroomh</a> <br> <a href="https://github.com/sdiebolt">Samuel Diebolt</a> <br> <a href="https://github.com/chrisroat">Chris Roat</a> <br> <a href="https://github.com/orena1">Oren Amsalem</a> <br> <a href="https://github.com/kclamar">kclamar</a> <br> <a href="https://github.com/DragaDoncila">Draga Doncila Pop</a> <br> <a href="https://github.com/juanma9613">juanma9613</a> <br> <a href="https://github.com/JulesScholler">Jules Scholler</a> <br> <a href="https://github.com/noisysky">Iaroslavna Vasylieva</a> <br> <a href="https://github.com/npeschke">Nicolas Peschke</a> <br> <a href="https://github.com/neuromusic">Justin Kiggins</a> <br> <a href="https://github.com/psobolewskiPhD">Peter Sobolewski</a> <br> <a href="https://github.com/SimaoBolota-MetaCell">Simão Bolota</a> <br> <a href="https://github.com/chili-chiu">chili-chiu</a> <br> <a href="https://github.com/jaimergp">jaimergp</a> <br> <a href="https://github.com/seblammers">Sebastian Lammers</a> <br> <a href="https://github.com/m-col">Matt Colligan</a> <br> <a href="https://github.com/paulbrodersen">Paul Brodersen</a></p>
+</div><div class="column" style="width:20%;">
+<p><a href="https://github.com/rcpeene">Carter Peene</a> <br> <a href="https://github.com/francesshei">francesshei</a> <br> <a href="https://github.com/seankmartin">Sean Martin</a> <br> <a href="https://github.com/bendichter">Ben Dichter</a> <br> <a href="https://github.com/4iar">4iar</a> <br> <a href="https://github.com/marcomusy">Marco Musy</a> <br> <a href="https://github.com/amedyukhina">Anna Medyukhina</a> <br> <a href="https://github.com/stegiopast">stegiopast</a> <br> <a href="https://github.com/EmanPaoli">EmanPaoli</a> <br> <a href="https://github.com/lidakanari">lidakanari</a> <br> <a href="https://github.com/arnaudon">Alexis Arnaudon</a> <br> <a href="https://github.com/liu-ziyang">Ziyang Liu</a> <br> <a href="https://github.com/philshams">Philip Shamash</a> <br> <a href="https://github.com/koushik-ms">koushik-ms</a> <br> <a href="https://github.com/haraldreingruber">Harald Reingruber</a> <br> <a href="https://github.com/emilyjanedennis">Emily Jane Dennis</a> <br> <a href="https://github.com/pattarika">Peak</a> <br> <a href="https://github.com/3ng7n33r">Maximilian Blacher</a> <br> <a href="https://github.com/HernandoMV">Hernando Martinez Vergara</a> <br> <a href="https://github.com/enassar">Estelle</a> <br> <a href="https://github.com/nicole-vissers">nicole-vissers</a> <br> <a href="https://github.com/GDoumou">GD</a> <br> <a href="https://github.com/mkunst23">Michael Kunst</a> <br> <a href="https://github.com/estellenassar">Estelle Nassar</a> <br> <a href="https://github.com/SaraMederos">Sara Mederos</a> <br> <a href="https://github.com/IgorTatarnikov">Igor Tatarnikov</a></p>
+</div><div class="column" style="width:20%;">
+<p><a href="https://github.com/viktorpm">Viktor Plattner</a> <br> <a href="https://github.com/carlocastoldi">Carlo Castoldi</a> <br> <a href="https://github.com/jingjie-li">Jingjie Li</a> <br> <a href="https://github.com/GuillaumeLeGoc">Guillaume Le Goc</a> <br> <a href="https://github.com/PolarBean">Harry Carey</a> <br> <a href="https://github.com/matham">Matt Einhorn</a> <br> <a href="https://github.com/K-Meech">Kimberly Meechan</a> <br> <a href="https://github.com/Robkozol">Robert Kozol</a> <br> <a href="https://github.com/RobertoDF">Roberto</a> <br> <a href="https://github.com/abisi">Axel Bisi</a> <br> <a href="https://github.com/kjungwoo5">Jung Woo Kim</a> <br> <a href="https://github.com/saimaabdus19">Saima Abdus</a> <br> <a href="https://github.com/saarah815/">Saarah Hussain</a> <br> <a href="https://github.com/sacha091">Sacha Hadaway-Andreae</a> <br> <a href="https://github.com/zenWai">Presa</a> <br> <a href="https://github.com/HenryCrosswell">Henry Crosswell</a> <br> <a href="https://github.com/nischitkumar">Nischit Kumar</a> <br> <a href="https://github.com/kira1228">Kirato Yoshihara</a> <br> <a href="https://orcid.org/0009-0004-1453-2638">Leonard Schwigon</a> <br> <a href="https://uol.de/ibu/neurosensorik/team/dinora-abdulazhanova">Dinora Abdulazhanova</a> <br> <a href="https://orcid.org/0000-0002-1365-2548">Katrin Haase</a> <br> <a href="https://orcid.org/0000-0002-2831-6985">Dominik Heyers</a> <br> <a href="https://orcid.org/0000-0001-7242-3123">Isabelle Museliak</a> <br> <a href="https://orcid.org/0000-0001-7082-4839">Henrik Mouritsen</a> <br> <a href="https://github.com/simonweiler">Simon Weiler</a> <br> <a href="https://github.com/stellaprins">Stella Prins</a></p>
+</div><div class="column" style="width:20%;">
+<p><a href="https://github.com/richarddushime">Richard Dushime</a> <br> <a href="https://github.com/mxochicale">Miguel Xochicale</a> <br> <a href="https://github.com/msp99000">M S P</a> <br> <a href="https://github.com/samadpls">Abdul Samad</a> <br> <a href="https://github.com/parharti">Prisha Sharma</a> <br> <a href="https://github.com/frdysf">Farida Yusuf</a> <br> <a href="https://github.com/0Anshu1">Anshu Saini</a> <br> <a href="https://github.com/Menna1812">Menna1812</a> <br> <a href="https://github.com/ayush2281">ayush2281</a> <br> <a href="https://github.com/BethCr">BethCr</a> <br> <a href="https://github.com/thisisrick25">Swapnaneel Patra</a> <br> <a href="https://github.com/X-Deng">Xiaoyu Deng</a> <br> <a href="https://github.com/DwarvesEatRocks">DwarvesEatRocks</a> <br> <a href="https://github.com/DPWebster">DPWebster</a> <br> <a href="https://github.com/conradRz">Conrad</a> <br> <a href="https://github.com/pranav33317">pranav33317</a> <br> <a href="https://github.com/Elsword016">Biswanath Saha</a> <br> <a href="https://github.com/Fede2717">Federico F.</a> <br> <a href="https://github.com/TimMonko">Tim Monko</a> <br> <a href="https://github.com/Skxsmy">Kaixiang Shuai</a> <br> <a href="https://github.com/giuliapaci">Giulia Paci</a> <br> <a href="https://github.com/marcodallavecchia">Marco Dalla Vecchia</a> <br> <a href="https://github.com/p-vychik">Pavel Vychyk</a> <br> <a href="https://github.com/ishratz25">Ishrat Zaman</a> <br> <a href="https://github.com/DrABashir">Asma Bashir</a> <br> <a href="https://github.com/FatmaElsharkawy">Fatma S. Elsharkawy</a></p>
+</div></div>
+<div class="footer">
+<p><a href="https://brainglobe.info/people.html">https://brainglobe.info/people.html</a></p>
+</div>
+</section>
+<section id="open-software-summer-school-2026" class="slide level2">
+<h2>Open Software Summer School 2026</h2>
+<div class="absolute" style="font-size: 0.5em;top: 22.5%; left: 5%; ">
+<p>For more information visit: <a href="https://neuroinformatics.dev/open-software-summer-school/">https://neuroinformatics.dev/open-software-summer-school/</a></p>
+</div>
+<p><img data-src="img/OSSS_2026_schedule.png" class="absolute nostretch" style="max-width: 100%;top: 40%; left: 0%; width: 100%; "> <img data-src="img/OSSS_QR_code.png" class="absolute nostretch" style="top: 15%; right: 5%; width: 12%; "></p>
+<div class="footer">
+<p><a href="https://neuroinformatics.dev/open-software-summer-school/">https://neuroinformatics.dev/open-software-summer-school/</a></p>
+</div>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="img/BG_logo.png" class="slide-logo"></p>
+<div class="footer footer-default">
+<p><a href="https://brainglobe.info/slides-CBIAS-2025">brainglobe.info/slides-CBIAS-2025</a></p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="index_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="index_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="index_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="index_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="index_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="index_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="index_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="index_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="index_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease-in",
+'autoAnimateDuration': 0.5,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":false,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true,"numbers":true,"hideMissingTitles":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: true,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 10,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 10,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
