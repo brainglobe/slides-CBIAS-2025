@@ -8,6 +8,24 @@ format:
     footer: "[brainglobe.info/slides-CBIAS-2025](https://brainglobe.info/slides-CBIAS-2025)"
 ---
 
+## BrainGlobe Initiative {.smaller}
+
+::: {.columns}
+::: {.column width="55%"}
+Established 2020 with three aims:
+
+:::{.incremental}
+1. Develop general-purpose tools to help others build interoperable software for computational neuroanatomy.
+2. Develop specialist software for specific analysis and visualisation needs.
+3. Reduce barriers of entry, and facilitate the building of an ecosystem of computational neuroanatomy tools.
+:::
+
+:::
+::: {.column width="45%"}
+![](img/tracing.png){.nostretch width="90%"}
+:::
+:::
+
 ## Understanding the brain
 
 ![](img/cajal_0_regions.jpg){.absolute .nostretch top="20%" left="5%" width="90%"}
@@ -37,25 +55,6 @@ Template
 ![](img/allen_10um_annotations.png){.nostretch}
 Annotation
 :::
-
-## BrainGlobe Initiative {.smaller}
-
-::: {.columns}
-::: {.column width="55%"}
-Established 2020 with three aims:
-
-:::{.incremental}
-1. Develop general-purpose tools to help others build interoperable software for computational neuroanatomy.
-2. Develop specialist software for specific analysis and visualisation needs.
-3. Reduce barriers of entry, and facilitate the building of an ecosystem of computational neuroanatomy tools.
-:::
-
-:::
-::: {.column width="45%"}
-![](img/tracing.png){.nostretch width="90%"}
-:::
-:::
-
 
 ## BrainGlobe atlases
 
@@ -89,10 +88,6 @@ Brain Atlas
 Enhanced and<br/>
 Unified Mouse<br/>
 Brain Atlas
-:::
-
-::: {.absolute right="0%" bottom="0%" style="text-align: right; font-size: 0.4em;"}
-Christian Niedwork<br/> Charly Rousseau<br/> Adam Tyson
 :::
 
 ::: footer
