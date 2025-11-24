@@ -46,15 +46,16 @@ Established 2020 with three aims:
 
 ## Brain atlases
 
-::: {.fragment .absolute top="15%" left="0%" width="50%" height="85%" style="font-size: 0.7em; text-align: center;"}
+::: {.fragment .absolute top="15%" left="0%" height="85%" width="50%" style="font-size: 0.7em; text-align: center;"}
+![](img/allen_10um_annotations.png){.nostretch}
+Annotation
+:::
+
+::: {.fragment .absolute top="15%" right="0%" width="50%" height="85%" style="font-size: 0.7em; text-align: center;"}
 ![](img/allen_10um_template.png){.nostretch}
 Template
 :::
 
-::: {.fragment .absolute top="15%" right="0%" height="85%" width="50%" style="font-size: 0.7em; text-align: center;"}
-![](img/allen_10um_annotations.png){.nostretch}
-Annotation
-:::
 
 ## BrainGlobe atlases
 
@@ -214,7 +215,7 @@ Brain Atlas
 ![](img/num_iter_median_distance.png){.absolute .nostretch width="68%" top="22%" left="0%"}
 
 ::: {.fragment}
-![](img/cbias_large_rep_comparison.png){.absolute .nostretch height="85%" top="7%" right="5%"}
+![](img/cbias_large_rep_comparison.png){.absolute .nostretch height="70%" top="25%" right="5%"}
 :::
 
 ## [`brainglobe-registration`](https://github.com/brainglobe/brainglobe-registration)
