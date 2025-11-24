@@ -225,7 +225,7 @@ Brain Atlas
 ## Acknowledgements
 <br/>
 
-Saarah Hussain<br/> Alessandro Felder<br/> Niko Sirmpilatze<br/> Adam Tyson
+Saarah Hussain<br/> Alessandro Felder<br/> Adam Tyson
 
 ::: {.fragment}
 ![](img/swc.webp){.absolute height=120px top="55%" left="10%"}
